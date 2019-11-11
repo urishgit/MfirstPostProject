@@ -14,16 +14,15 @@ public class PostServiceImpl implements PostService{
 	@Autowired
 	PostRepository repository;
 	
-	@SuppressWarnings("null")
+
 	@Override
 	public Post addPost(Post post, String auther) {
-	   post =repository.findById(post.getId()).orElse(null);
+	   post =repository.findByAuther(auther);
 	    if(post!=null)
 	    {
 	    	System.out.println("post exits");
 	    	return null;
 	    }
-	    post.setAuther(auther);
 		return repository.save(post);
 	}
 

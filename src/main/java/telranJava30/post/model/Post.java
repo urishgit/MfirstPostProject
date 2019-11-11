@@ -20,6 +20,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(of = "id")
 @Document(collation = "posts")
+
 public class Post {
 	@Id
 String id;
@@ -36,7 +37,7 @@ Map<String, String>tags;
 int likes;
 @Setter
 List<Comment>comments;
-@SuppressWarnings("unused")
+
 public Post( String title, String content, Map<String, String>tags) {
 	
 	this.title = title;
@@ -44,7 +45,6 @@ public Post( String title, String content, Map<String, String>tags) {
 this.tags=new HashMap<String, String>();
 	comments =new ArrayList<>();
 	auther=null;
-	String id="";
 }
 
 public int addlike(int likes)
