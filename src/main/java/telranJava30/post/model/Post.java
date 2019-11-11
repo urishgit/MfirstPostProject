@@ -36,12 +36,15 @@ Map<String, String>tags;
 int likes;
 @Setter
 List<Comment>comments;
+@SuppressWarnings("unused")
 public Post( String title, String content, Map<String, String>tags) {
+	
 	this.title = title;
 	this.content = content;
 this.tags=new HashMap<String, String>();
 	comments =new ArrayList<>();
-	auther="";
+	auther=null;
+	String id="";
 }
 
 public int addlike(int likes)

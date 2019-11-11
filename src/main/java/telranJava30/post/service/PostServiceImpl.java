@@ -17,7 +17,7 @@ public class PostServiceImpl implements PostService{
 	@SuppressWarnings("null")
 	@Override
 	public Post addPost(Post post, String auther) {
-	    post=repository.findById(post.getId()).orElse(null);
+	   post =repository.findById(post.getId()).orElse(null);
 	    if(post!=null)
 	    {
 	    	System.out.println("post exits");
