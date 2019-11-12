@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import telranJava30.post.dau.PostRepository;
 import telranJava30.post.dto.PostDto;
+import telranJava30.post.dto.PostNotExists;
+import telranJava30.post.dto.PostNotExistsByAuther;
 import telranJava30.post.model.Comment;
 import telranJava30.post.model.Post;
 
@@ -17,12 +19,7 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Post addPost(Post post, String auther) {
-	   post =repository.findByAuther(auther);
-	    if(post!=null)
-	    {
-	    	System.out.println("post exits");
-	    	return null;
-	    }
+	   post.setAuther(auther);
 		return repository.save(post);
 	}
 
@@ -31,7 +28,7 @@ public class PostServiceImpl implements PostService{
 		Post post=repository.findById(id).orElse(null);
 		if(post==null)
 		{
-			return null;
+			throw new PostNotExists(id);
 		}
 		return post;
 	}
@@ -41,7 +38,7 @@ public class PostServiceImpl implements PostService{
 		Post post=repository.findById(id).orElse(null);
 		if(post==null)
 		{
-			return null;
+			throw new PostNotExists(id);
 		}
 		repository.delete(post);
 		return post;
@@ -52,7 +49,7 @@ public class PostServiceImpl implements PostService{
 	Post post=repository.findById(id).orElse(null);
 	if(post==null)
 	{
-		return null;
+		throw new PostNotExists(id);
 	}
 	if(postdto.getTitle()!=null)
 	{
@@ -74,7 +71,7 @@ public class PostServiceImpl implements PostService{
 		Post post=repository.findById(id).orElse(null);
 		if(post==null)
 		{
-			return null;
+			throw new PostNotExists(id);
 		}
 		int likes=post.addlike(1);
 		post.setLikes(likes);
@@ -85,7 +82,7 @@ public class PostServiceImpl implements PostService{
 	public Post addComment(String id, String auther, Comment comment) {
 		Post post=repository.findById(id).orElse(null);
 		if(post==null) {
-			return null;
+			throw new PostNotExists(id);
 		}
 		post.setAuther(auther);
 		post.addComment(comment);
@@ -97,7 +94,7 @@ public class PostServiceImpl implements PostService{
 		Post post=repository.findByAuther(auther);
 		if(post == null)
 		{
-			return null;
+			throw new PostNotExistsByAuther(auther);
 		}
 		
 		return post;
