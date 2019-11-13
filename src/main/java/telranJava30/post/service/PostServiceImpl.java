@@ -1,5 +1,7 @@
 package telranJava30.post.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,11 @@ public class PostServiceImpl implements PostService{
 	
 
 	@Override
-	public Post addPost(Post post, String auther) {
-	   post.setAuther(auther);
-		return repository.save(post);
+	public Post addPost(PostDto postDto, String auther) {
+		Post post=findPostByAuther(auther);
+			List<String>res=post.addTaGList(postDto.getTags());
+			post=new Post(postDto.getTitle(), postDto.getContent(), res);		
+	return repository.save(post);
 	}
 
 	@Override
@@ -59,10 +63,11 @@ public class PostServiceImpl implements PostService{
 	{
 		post.setContent(postdto.getContent());
 	}
-	if(postdto.getTags()!=null)
-	{
-		post.setTags(postdto.getTags());
-	}
+     if(postdto.getTags()!=null)
+     {
+    	 List<String>resList=post.addTaGList(postdto.getTags());
+    	 post.setTags(resList);
+     }
 		return repository.save(post);
 	}
 

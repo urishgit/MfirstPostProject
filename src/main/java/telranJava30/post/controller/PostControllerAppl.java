@@ -20,9 +20,9 @@ public class PostControllerAppl {
 	PostService postService;
 	
 @PostMapping("/forum/post/{auther}")
-public Post addPost( @RequestBody Post post,@PathVariable  String auther)
+public Post addPost( @RequestBody PostDto postDto,@PathVariable  String auther)
 {
-	return postService.addPost(post, auther);
+	return postService.addPost(postDto, auther);
 }
 @GetMapping("/forum/post/{id}")
 public Post findPostById(@PathVariable String id)

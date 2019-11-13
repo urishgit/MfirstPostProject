@@ -8,7 +8,7 @@ import telranJava30.post.model.Comment;
 import telranJava30.post.model.Post;
 
 public interface PostService {
-	public Post addPost( @RequestBody Post post,@PathVariable  String auther);
+	public Post addPost( @RequestBody PostDto postDto,@PathVariable  String auther);
 	
 	
 	public Post findPostById(@PathVariable String id);
